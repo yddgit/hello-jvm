@@ -26,6 +26,8 @@ JVM调优
 + 当对象初始化new出来的时候：
   - 大对象直接放入tenured
   - 其他普通对象放入eden
++ eden区满触发minorGC，eden区未回收的对象copy到s1区，同时s0区未回收的对象也copy到s1区
++ 下次minorGC时，eden区未回收的对象copy到s0区，同时s1区未回收的对象也copy到s0区
 + 经过多次GC后仍有引用指向的对象将会在两个survivor区之间交替复制
 + 每个时刻总有一个survivor区为空
 + 经过很多次GC后仍不能被回收的对象将被移入tenured区
